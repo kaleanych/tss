@@ -1,0 +1,18 @@
+{
+  "name": "tss-lab",
+  "author": "Nicolae PLESCO",
+  "private": true,
+  "scripts": {
+    "test-cov": "npx nyc mocha",
+    "test-mut": "npx stryker run"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "devDependencies": {
+    "@stryker-mutator/core": "^8.7.1",
+    "@stryker-mutator/mocha-runner": "^8.7.1",
+    "acorn": "^8.14.1",
+    "nyc": "^17.1.0"
+  }
+}
