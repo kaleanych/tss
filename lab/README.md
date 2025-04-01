@@ -1,6 +1,6 @@
 ## CFG
 
-![Code2Flow](code2flow_HULGzK.png)
+![Code2Flow](assets/code2flow_HULGzK.png)
 [Code2Flow Link](https://app.code2flow.com/jkUR3zLmKUMI)
 
 
@@ -18,10 +18,10 @@ $ npm run test-mut # npx stryker run
 
 ### HTML
 reports/mutation/mutation.html
-![Mutation](mutation.png)
+![Mutation](assets/mutation.png)
 
 ### CLI
-![Mutation CLI](mutation_cli.png)
+![Mutation CLI](assets/mutation_cli.png)
 
 
 ## Coverage Test
@@ -30,4 +30,4 @@ reports/mutation/mutation.html
 $ npm run test-cov # npx nyc mocha
 ```
 
-![Coverage](coverage.png)
+![Coverage](assets/coverage.png)
