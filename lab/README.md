@@ -18,7 +18,7 @@ Limbajul folosit: **JavaScript (Node.js)**
 
 ## CFG (Control Flow Graph)
 
-![Code2Flow](assets/code2flow_HULGzK.png)
+![Code2Flow](assets/code2flow.png)
 [Code2Flow Link](https://app.code2flow.com/jkUR3zLmKUMI)
 
 ---
