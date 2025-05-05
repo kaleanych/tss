@@ -11,6 +11,8 @@ diferențele dintre tool-uri.
 de funcționalitate, navigare, validare formular, compatibilitate browser et al.). Motivați alegerea
 făcută.
 
+---
+
 ### 1. Introducere
 
 Testarea interfeței grafice (GUI) este esențială pentru asigurarea calității aplicațiilor web, deoarece interfața 
