@@ -1,2 +1,6 @@
 .DS_Store
-
+*.tmp.md
+.idea
+node_modules
+test/cypress/cypress/screenshots
+test/cypress/cypress/videos

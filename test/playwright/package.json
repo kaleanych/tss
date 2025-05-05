@@ -1,0 +1,20 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "playwright:open": "npx playwright test",
+    "playwright:open:chromium": "npx playwright test --project=chromium",
+    "playwright:open:firefox": "npx playwright test --project=firefox",
+    "playwright:open:webkit": "npx playwright test --project=webkit",
+    "playwright:install": "npx playwright install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

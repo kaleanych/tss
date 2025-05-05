@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { margin-top: 40px; }
+        .todo-item.completed .content { text-decoration: line-through; color: #888; }
+    </style>
+</head>
+<body>
+<div class="ui container">
+    <h2 class="ui dividing header">ToDo List</h2>
+    <form id="todo-form" class="ui form">
+        <div class="ui fluid action input">
+            <input type="text" id="todo-input" placeholder="Adaugă o sarcină nouă...">
+            <button class="ui blue button" type="submit">Adaugă</button>
+        </div>
+    </form>
+
+    <div class="ui menu stackable" style="margin-top: 20px;">
+        <a class="item active" data-filter="all">Toate</a>
+        <a class="item" data-filter="active">Active</a>
+        <a class="item" data-filter="completed">Finalizate</a>
+    </div>
+
+    <div class="ui divided relaxed list" id="todo-list"></div>
+</div>
+
+<!-- Modal pentru confirmare ștergere -->
+<div class="ui basic modal" id="delete-modal">
+    <div class="ui icon header">
+        <i class="trash alternate outline icon"></i>
+        Confirmare ștergere
+    </div>
+    <div class="content">
+        <p>Ești sigur că vrei să ștergi această sarcină?</p>
+    </div>
+    <div class="actions">
+        <div class="ui red basic cancel inverted button">
+            <i class="remove icon"></i>
+            Nu
+        </div>
+        <div class="ui green ok inverted button">
+            <i class="checkmark icon"></i>
+            Da
+        </div>
+    </div>
+</div>
+
+<!-- Modal pentru editare -->
+<div class="ui modal" id="edit-modal">
+    <div class="header">Editează sarcina</div>
+    <div class="content">
+        <form class="ui form" id="edit-form">
+            <div class="field">
+                <input type="text" id="edit-input">
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">Anulează</div>
+        <div class="ui positive button" id="save-edit">Salvează</div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script>
+    let todos = [];
+    let currentFilter = 'all';
+    let deleteIndex = null;
+    let editIndex = null;
+
+    const form = document.getElementById('todo-form');
+    const input = document.getElementById('todo-input');
+    const list = document.getElementById('todo-list');
+    const filterMenu = document.querySelector('.ui.menu');
+    const deleteModal = $('#delete-modal');
+    const editModal = $('#edit-modal');
+    const editInput = document.getElementById('edit-input');
+    const editForm = document.getElementById('edit-form');
+
+    function renderTodos() {
+        list.innerHTML = '';
+        let filtered = todos;
+        if (currentFilter === 'active') filtered = todos.filter(t => !t.completed);
+        if (currentFilter === 'completed') filtered = todos.filter(t => t.completed);
+        filtered.forEach((todo, i) => {
+            const item = document.createElement('div');
+            item.className = 'item todo-item' + (todo.completed ? ' completed' : '');
+            item.innerHTML = `
+          <div class="ui checkbox" style="margin-right: 1em;">
+            <input type="checkbox" ${todo.completed ? 'checked' : ''} data-index="${i}">
+            <label></label>
+          </div>
+          <div class="content" style="flex:1;display:inline-block;">${todo.text}</div>
+          <div class="right floated content">
+            <button class="ui icon mini button edit-btn" data-index="${i}" title="Editează"><i class="edit icon"></i></button>
+            <button class="ui icon mini red button delete-btn" data-index="${i}" title="Șterge"><i class="trash icon"></i></button>
+          </div>
+        `;
+            list.appendChild(item);
+        });
+
+        $('.ui.checkbox').checkbox();
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const val = input.value.trim();
+        if (val) {
+            todos.push({ text: val, completed: false });
+            input.value = '';
+            renderTodos();
+        }
+    });
+
+    list.addEventListener('click', function(e) {
+        console.log(e.target);
+        if (e.target.closest('.ui.checkbox')) {
+            const input = e.target.closest('.ui.checkbox').querySelector('input[type="checkbox"]');
+            const idx = input.getAttribute('data-index');
+            todos[idx].completed = !todos[idx].completed;
+            renderTodos();
+        }
+        if (e.target.closest('.edit-btn')) {
+            editIndex = e.target.closest('.edit-btn').getAttribute('data-index');
+            editInput.value = todos[editIndex].text;
+            editModal.modal('show');
+        }
+        if (e.target.closest('.delete-btn')) {
+            deleteIndex = e.target.closest('.delete-btn').getAttribute('data-index');
+            deleteModal.modal('show');
+        }
+    });
+
+    deleteModal.modal({
+        onApprove: function() {
+            if (deleteIndex !== null) {
+                todos.splice(deleteIndex, 1);
+                renderTodos();
+                deleteIndex = null;
+            }
+        }
+    });
+
+    document.getElementById('save-edit').onclick = function() {
+        if (editInput.value.trim() && editIndex !== null) {
+            todos[editIndex].text = editInput.value.trim();
+            renderTodos();
+            editModal.modal('hide');
+            editIndex = null;
+        }
+    };
+
+    filterMenu.addEventListener('click', function(e) {
+        if (e.target.classList.contains('item')) {
+            filterMenu.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
+            e.target.classList.add('active');
+            currentFilter = e.target.getAttribute('data-filter');
+            renderTodos();
+        }
+    });
+
+    editForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.getElementById('save-edit').click();
+    });
+
+    renderTodos();
+</script>
+</body>
+</html>
