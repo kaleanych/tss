@@ -89,6 +89,8 @@ accesibilitatea, compatibilitatea și experiența utilizatorului pe diferite bro
 
 #### **Exemplu Selenium (Java)**
 
+Testele pentru aplicatia ToDo sunt scrise in JavaScript, dar pentru a ilustra diferenta de sintaxa, voi folosi Java pentru Selenium. 
+
 ```java
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -123,6 +125,8 @@ public class ToDoAppTest {
 *Comentariu:* Necesită setup pentru ChromeDriver, folosirea explicită a selectorilor, gestionarea manuală a sincronizărilor dacă elementul nu apare imediat.
 
 #### **Exemplu Cypress (JavaScript)**
+
+Testele Cypress au fost scrise utilizând sintaxa Gherkin și modulul de preprocesare. Totuși, pentru exemplu, am folosit varianta standard, similară cu testele Selenium scrise în JavaScript.
 
 ```javascript
 describe('ToDo App Tests', () => {
@@ -206,17 +210,86 @@ npx cypress run --browser firefox
     - Node.js: v18.x
     - Cypress: v14.x
     - Browsere: Chrome 135, Firefox 126
-    - 
-- **Setup:**
-    - Instalare Cypress: `npm install cypress --save-dev`
-    - Structură proiect: `/test/cypress/cypress/e2e/`, `/test/cypress/cypress/fixtures/`
-  
-- **Rulare teste:**
-    - `npm run cy:open` (`npx cypress open`) pentru UI, `npm run cy:tests` (`npx cypress run`) pentru headless
-    - 
-- **Capturi de ecran și rezultate:**
+
+### Setup
+
+#### **1. Selenium WebDriver**
+
+Folder: `test/selenium`
+
+1. **Instalare dependențe:**
+  - Rulează comanda:
+    ```bash
+    npm install
+    ```
+  - Aceasta va instala `selenium-webdriver`, `mocha` și `assert` (`test/selenium/package.json`).
+
+2. **Rulare teste:**
+  - Rulează comanda:
+    ```bash
+    npm run test
+    ```
+  - Aceasta va executa testele din folderul `test/selenium/tests/todo.js` folosind Mocha.
+
+---
+
+#### **2. Cypress**
+
+Folder: `test/cypress`
+
+1. **Instalare dependențe:**
+  - Rulează comanda:
+    ```bash
+    npm install
+    ```
+  - Aceasta va instala `cypress` și alte pachete necesare (`test/cypress/package.json`).
+
+2. **Rulare teste:**
+  - Pentru a deschide interfața grafică Cypress:
+    ```bash
+    npm run cy:open
+    ```
+  - Pentru a rula testele în mod headless:
+    ```bash
+    npm run cy:tests
+    ```
+
+  - **Capturi de ecran și rezultate:**
     - Cypress generează automat capturi la fiecare test eșuat și rapoarte detaliate.
-    - Testele au trecut pe ambele browsere.
+
+
+3. **Structura proiectului:**
+  - Testele sunt localizate în `test/cypress/cypress/e2e/`.
+  - Fișierul de configurare: `test/cypress/cypress.config.js`.
+
+---
+
+#### **3. Playwright**
+
+Folder: `test/playwright`
+
+1. **Instalare dependențe:**
+  - Rulează comanda:
+    ```bash
+    npm install
+    ```
+  - Aceasta va instala `@playwright/test` (`test/playwright/package.json`).
+
+2. **Instalare browsere suportate:**
+  - Rulează comanda:
+    ```bash
+    npm run playwright:install
+    ```
+
+3. **Rulare teste:**
+  - Pentru a rula toate testele:
+    ```bash
+    npm run playwright:open
+    ```
+  - Pentru a rula testele pe un browser specific, de exemplu Chromium:
+    ```bash
+    npm run playwright:open:chromium
+    ```
 
 ---
 
@@ -226,7 +299,6 @@ npx cypress run --browser firefox
 - **Cypress** oferă o experiență superioară pentru testarea rapidă și stabilă a interfeței grafice a aplicațiilor web moderne, cu debugging vizual și setup minim.
 - **Selenium** rămâne alegerea potrivită pentru proiecte mari, multi-platformă, unde este necesară testarea pe browsere diverse și integrarea cu alte tool-uri.
 - **Playwright** este o alegere excelentă pentru proiecte moderne, multi-platformă, care necesită testare pe browsere diverse, inclusiv Safari, cu suport pentru emulare mobilă, debugging avansat și execuție rapidă.
-- Utilizarea AI pentru generarea de teste poate accelera procesul, dar testele scrise manual, structurate și adaptate aplicației, oferă o acoperire și întreținere mai bună.
-- Toate framework-uri pot fi integrate în pipeline-uri CI/CD pentru testare automată la fiecare commit.
+- Toate framework-urile pot fi integrate în pipeline-uri CI/CD pentru testare automată la fiecare commit.
 
 ---

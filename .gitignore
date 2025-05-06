@@ -4,3 +4,4 @@
 node_modules
 test/cypress/cypress/screenshots
 test/cypress/cypress/videos
+test/playwright/test-results

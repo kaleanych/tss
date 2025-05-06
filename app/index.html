@@ -95,7 +95,7 @@
             <input type="checkbox" ${todo.completed ? 'checked' : ''} data-index="${i}">
             <label></label>
           </div>
-          <div class="content" style="flex:1;display:inline-block;">${todo.text}</div>
+          <div class="content task-name" style="flex:1;display:inline-block;">${todo.text}</div>
           <div class="right floated content">
             <button class="ui icon mini button edit-btn" data-index="${i}" title="Editează"><i class="edit icon"></i></button>
             <button class="ui icon mini red button delete-btn" data-index="${i}" title="Șterge"><i class="trash icon"></i></button>

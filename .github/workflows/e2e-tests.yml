@@ -1,0 +1,28 @@
+name: Test ToDo App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-todo-app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: install-deps
+
+      - name: Start the App
+        run: make start-app &
+
+      - name: Run Cypress Tests
+        run: make test-app
