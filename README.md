@@ -261,11 +261,11 @@ Folder: `test/cypress`
   - Aceasta va instala `cypress` și alte pachete necesare (`test/cypress/package.json`).
 
 2. **Rulare teste:**
-  - Pentru a deschide interfața grafică Cypress:
+  - Pentru a deschide interfața grafică Cypress (GUI):
     ```bash
     npm run cy:open
     ```
-  - Pentru a rula testele în mod headless:
+  - Pentru a rula testele în mod headless (CLI):
     ```bash
     npm run cy:tests
     ```
