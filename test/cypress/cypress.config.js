@@ -11,6 +11,7 @@ module.exports = defineConfig({
     e2e: {
         specPattern: '**/*.feature',
         video: true,
+        videoUploadOnPasses: false,
         setupNodeEvents(on, config) {
             on('file:preprocessor', cucumber());
         },

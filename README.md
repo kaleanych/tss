@@ -41,9 +41,13 @@ accesibilitatea, compatibilitatea și experiența utilizatorului pe diferite bro
     - Integrare cu multe alte tool-uri (TestNG, JUnit, Jenkins).
     - Comunitate mare, documentație bogată.
 - **Dezavantaje:**
+    - Configurare complexă.
     - Debugging-ul poate fi dificil.
     - Testele pot fi mai lente din cauza comunicării cu browserul prin drivere externe.
     - Necesită gestionarea explicită a sincronizărilor (waits).
+    - Testele pot deveni instabile („flaky”) din cauza sincronizării manuale.
+    - Lipsa unui test runner vizual.
+
 
 #### **Cypress**
 
@@ -60,13 +64,20 @@ accesibilitatea, compatibilitatea și experiența utilizatorului pe diferite bro
     - Nu poate testa aplicații non-JS sau interfețe desktop.
     - Nu permite testarea pe browsere mobile reale (doar simulare).
 
+
 #### **Playwright**
 
 - **Descriere:** Playwright este un framework modern, dezvoltat de Microsoft, pentru automatizarea testării aplicațiilor web. Acesta permite scrierea de teste end-to-end rapide și fiabile, cu suport complet pentru toate motoarele de randare moderne (Chromium, Firefox, WebKit), ceea ce asigură testarea pe toate browserele majore.
 - **Utilitate:** Oferă testare end-to-end robustă pentru aplicații moderne, cu suport extins pentru toate browserele majore, inclusiv Safari și emulare mobilă.
 - **Ușurință:** Instalare rapidă, API intuitiv, debugging avansat (Inspector, trace viewer), auto-waiting, suport pentru scenarii complexe (multi-tab, pop-up, iframes).
-- **Avantaje:** Suport complet cross-browser, emulare mobilă, debugging avansat, rapiditate, API modern.
-- **Dezavantaje:** Comunitate și ecosistem mai noi, integrare CI/CD poate necesita ajustări pentru proiecte foarte mari.
+- **Avantaje**:
+    - Suport complet cross-browser, inclusiv Safari.
+    - Debugging avansat și funcții moderne.
+    - Suport pentru emulare mobilă.
+    - API modern și intuitiv.
+- **Dezavantaje**:
+    - Comunitate mai mică comparativ cu Selenium.
+    - Integrarea în CI/CD poate necesita ajustări pentru proiecte mari.
 
 
 #### **Tabel comparativ**
@@ -89,7 +100,7 @@ accesibilitatea, compatibilitatea și experiența utilizatorului pe diferite bro
 
 #### **Exemplu Selenium (Java)**
 
-Testele pentru aplicatia ToDo sunt scrise in JavaScript, dar pentru a ilustra diferenta de sintaxa, voi folosi Java pentru Selenium. 
+Testele pentru aplicația ToDo sunt scrise în JavaScript, dar pentru a ilustra diferența de sintaxă, voi folosi Java pentru exemplul Selenium. 
 
 ```java
 import org.openqa.selenium.By;
@@ -126,7 +137,7 @@ public class ToDoAppTest {
 
 #### **Exemplu Cypress (JavaScript)**
 
-Testele Cypress au fost scrise utilizând sintaxa Gherkin și modulul de preprocesare. Totuși, pentru exemplu, am folosit varianta standard, similară cu testele Selenium scrise în JavaScript.
+Testele Cypress au fost scrise utilizând sintaxa Gherkin și modulul de pre-procesare, dar pentru exemplu, am folosit varianta standard, similară cu testele Selenium pentru aplicația ToDo scrise în JavaScript.
 
 ```javascript
 describe('ToDo App Tests', () => {
@@ -165,18 +176,22 @@ test('should add and complete a task in ToDo app', async ({ page }) => {
 ```
 *Comentariu:* API modern, suport pentru toate browserele, auto-waiting, debugging avansat.
 
-**Observații:**
-- Cypress și Playwright oferă sintaxă modernă, simplă, cu așteptări implicite și debugging vizual.
-- Playwright permite testare pe mai multe browsere, inclusiv Safari, și scenarii complexe (ex: multi-tab).
-- Selenium necesită gestionare manuală a driverelor și sincronizărilor, dar oferă cea mai largă compatibilitate.
+---
+
+### **Concluzie comparativă**
+- **Selenium** este potrivit pentru proiecte mari, multi-platformă, care necesită testare pe o gamă largă de browsere și sisteme de operare.
+- **Cypress** este ideal pentru aplicații moderne JavaScript, oferind o experiență simplă și rapidă, dar cu limitări în testarea cross-browser și mobilă.
+- **Playwright** combină avantajele ambelor tool-uri, oferind suport complet cross-browser, emulare mobilă și debugging avansat, fiind o alegere excelentă pentru proiecte moderne.
 
 ---
 
-### 4. Implementare: Teste automate cu Cypress
+### 4. Implementare: Teste automate
+
+Am implementat testele folosind toate 3 framework-uri, dar pentru **Cypress** implmentarea e făcută mai detaliat, cu integrarea CI/CD, datorită ușurinței de utilizare și a feedback-ului vizual pe care îl oferă.
 
 #### **Motivația alegerii Cypress**
 
-Am ales Cypress pentru partea practică deoarece:
+Am ales Cypress pentru partea practică detaliată deoarece:
 - Permite dezvoltarea rapidă a testelor cu feedback vizual și debugging facil.
 - Am mai avut experiență cu el.
 - Este ideal pentru aplicații moderne, scrise în JavaScript, și pentru echipe care doresc integrare rapidă cu CI/CD.
@@ -184,26 +199,27 @@ Am ales Cypress pentru partea practică deoarece:
 
 #### **Structura testelor**
 
-Vom testa următoarele aspecte ale aplicației ToDo:
+Vom testa următoarele aspecte ale aplicației ToDo (6 teste):
 
-- Adăugarea unei sarcini noi
-- Marcarea unei sarcini ca finalizată
-- Filtrarea sarcinilor active
-- Filtrarea sarcinilor finalizate
-- Editarea unei sarcini existente
-- Ștergerea unei sarcini existente
+1. Adăugarea unei sarcini noi
+2. Marcarea unei sarcini ca finalizată
+3. Filtrarea sarcinilor active
+4. Filtrarea sarcinilor finalizate
+5. Editarea unei sarcini existente
+6. Ștergerea unei sarcini existente
 
 
 **Test de compatibilitate browser**  
-Cypress permite rularea testelor pe Chrome, Edge, Firefox, cu o singură comandă:
+Cypress permite rularea testelor pe Chrome, Electron, Firefox, cu o singură comandă:
 ```bash
 npx cypress run --browser chrome
+npx cypress run --browser electron
 npx cypress run --browser firefox
 ```
 
 ---
 
-### 5. Documentație și rezultate
+### 5. Documentație
 
 - **Configurație hardware/software:**
     - OS: macOS 15.4.1
@@ -211,9 +227,9 @@ npx cypress run --browser firefox
     - Cypress: v14.x
     - Browsere: Chrome 135, Firefox 126
 
-### Setup
+#### Setup
 
-#### **1. Selenium WebDriver**
+##### **1. Selenium WebDriver**
 
 Folder: `test/selenium`
 
@@ -233,7 +249,7 @@ Folder: `test/selenium`
 
 ---
 
-#### **2. Cypress**
+##### **2. Cypress**
 
 Folder: `test/cypress`
 
@@ -254,17 +270,55 @@ Folder: `test/cypress`
     npm run cy:tests
     ```
 
-  - **Capturi de ecran și rezultate:**
-    - Cypress generează automat capturi la fiecare test eșuat și rapoarte detaliate.
-
-
+    
 3. **Structura proiectului:**
   - Testele sunt localizate în `test/cypress/cypress/e2e/`.
   - Fișierul de configurare: `test/cypress/cypress.config.js`.
 
+
+4. **Capturi de ecran și interpretarea rezultatelor** 
+  - Capturi de ecran (`test/cypress/cypress/screenshots/`) și rapoarte detaliate sunt generate automat de Cypress la fiecare test eșuat.
+  - Video-urile (`test/cypress/cypress/videos/`), dacă { video: true } în config, sunt generate automat de Cypress doar din modul headless (CLI).
+    
 ---
 
-#### **3. Playwright**
+Iată câteva capturi de ecran din cadrul unei execuții normale a testelor:
+
+---
+
+**GUI**
+
+---
+
+![S1](assets/s1.png)
+---
+![S2](assets/s2.png)
+---
+![S3](assets/s3.png)
+---
+![S4](assets/s4.png)
+---
+![S5](assets/s5.png)
+
+---
+
+**CLI (headless)**
+
+---
+
+![T1](assets/t1.png)
+---
+![T2](assets/t2.png)
+
+---
+
+  - **Interpretarea rezultatelor**: 
+    - Toate testele au fost executate cu succes, fără erori, deci aplicația funcționează conform așteptărilor.
+    - Durata de execuție a fost de aproximativ 4 secunde pentru toate testele.
+
+---
+
+##### **3. Playwright**
 
 Folder: `test/playwright`
 
@@ -291,6 +345,29 @@ Folder: `test/playwright`
     npm run playwright:open:chromium
     ```
 
+4. **Structura proiectului:**
+- Testele sunt localizate în `test/playwright/tests/`.
+- Fișierul de configurare: `test/playwright/playwright.config.js`.
+
+---
+
+### Integrare cu CI/CD
+
+Pipeline-ul CI/CD (`.github/workflows/e2e-tests.yml`) automatizează testarea funcționalității aplicației web ToDo.
+
+1. **Declanșare**: Workflow-ul este declanșat la fiecare push pe branch-ul `main`.
+
+2. **Mediu**: Rulează pe o mașină virtuală `ubuntu-latest`.
+
+3. **Pași**:
+    - **Checkout cod**: Folosește acțiunea `actions/checkout@v2` pentru a clona repository-ul.
+    - **Configurare Node.js**: Instalează Node.js 18 cu `actions/setup-node@v3`.
+    - **Instalare dependențe**: Rulează comanda `make install-deps` pentru a instala toate dependențele necesare.
+    - **Pornire aplicație**: Rulează comanda `make start-app` pentru a porni aplicația web în fundal.
+    - **Rulare teste**: Rulează comanda `make test-app` pentru a executa testele end-to-end, folosind Cypress.
+
+Acest pipeline asigură construirea aplicației, instalarea dependențelor și rularea automată a testelor pentru fiecare modificare de cod, menținând calitatea și funcționalitatea aplicației.
+
 ---
 
 
@@ -299,6 +376,5 @@ Folder: `test/playwright`
 - **Cypress** oferă o experiență superioară pentru testarea rapidă și stabilă a interfeței grafice a aplicațiilor web moderne, cu debugging vizual și setup minim.
 - **Selenium** rămâne alegerea potrivită pentru proiecte mari, multi-platformă, unde este necesară testarea pe browsere diverse și integrarea cu alte tool-uri.
 - **Playwright** este o alegere excelentă pentru proiecte moderne, multi-platformă, care necesită testare pe browsere diverse, inclusiv Safari, cu suport pentru emulare mobilă, debugging avansat și execuție rapidă.
-- Toate framework-urile pot fi integrate în pipeline-uri CI/CD pentru testare automată la fiecare commit.
 
 ---
