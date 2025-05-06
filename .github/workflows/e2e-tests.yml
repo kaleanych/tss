@@ -19,7 +19,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: install-deps
+        run: make install-deps
 
       - name: Start the App
         run: make start-app &
